@@ -41,7 +41,8 @@ namespace FirstBot.Dialogs
                 await this.MessageReceivedAsync(context,null);
         }
 
-        private async Task MessagePetName(IDialogContext context, IAwaitable<IMessageActivity> result)
+// this method is replaced by the other method "MessagePetName2" 
+        private async Task MessagePetName2(IDialogContext context, IAwaitable<IMessageActivity> result)
         { 
             var message = await result as Activity;
             await context.PostAsync(message.Text + " is awsome name !!");
@@ -93,6 +94,44 @@ namespace FirstBot.Dialogs
             }
             await context.PostAsync(messagetosend);
         }
+        
+        private async Task MessagePetName(IDialogContext context, IAwaitable<string> result)
+        {
+            var choice = await result;
+
+                if(choice != null)
+                {
+                    var reply = context.MakeMessage();
+                    reply.Attachments = new List<Attachment>();
+
+                    List<CardImage> cardImages = new List<CardImage>() { new CardImage("http://saibimajdi.com/images/shared.png") };
+                    List<CardAction> cardActions = new List<CardAction>()
+                    {
+                        new CardAction()
+                        {
+                            Value = "http://saibimajdi.com",
+                            Title = "Majdi SAIBI Website",
+                            Type = "openUrl"
+                        }
+                    };
+
+                    ThumbnailCard thumbnailCard = new ThumbnailCard()
+                    {
+                        Title = "Hi, I'm Majdi",
+                        Subtitle = "Thinker & .NET Developer",
+                        Images = cardImages,
+                        Buttons = cardActions,
+                    };
+
+                    reply.Attachments.Add(thumbnailCard.ToAttachment());
+
+                    await context.PostAsync(reply);
+                }
+                else
+                {
+                    PromptDialog.Text(context, aboutDeveloperResumeAfter, "Options :", "Sorry, I can't understand you!");
+                }
+            }
         
         /*private async Task MessagePetspecy(IDialogContext context, IAwaitable<IMessageActivity> result)
         {
