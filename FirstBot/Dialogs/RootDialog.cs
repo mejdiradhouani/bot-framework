@@ -93,7 +93,8 @@ namespace FirstBot.Dialogs
             }
             await context.PostAsync(messagetosend);
         }
-        private async Task MessagePetspecy(IDialogContext context, IAwaitable<IMessageActivity> result)
+        
+        /*private async Task MessagePetspecy(IDialogContext context, IAwaitable<IMessageActivity> result)
         {
             var message = await result;
             if (message.Text.ToLower().Equals("1", StringComparison.InvariantCultureIgnoreCase))
@@ -103,6 +104,22 @@ namespace FirstBot.Dialogs
             }
             else
              if (message.Text.ToLower().Equals("2", StringComparison.InvariantCultureIgnoreCase))
+            {
+                await context.PostAsync("Dog is a nice choice");
+            }
+            else
+                await this.MessageReceivedAsync(context, null);
+        }*/
+        private async Task MessagePetspecy(IDialogContext context, IAwaitable<string> result)
+        {
+            var message = await result as string;
+            if (message.ToLower().Equals("1", StringComparison.InvariantCultureIgnoreCase))
+            {
+                await context.PostAsync("Cat is a nice choice");
+                context.Wait(MessagePetName);
+            }
+            else
+             if (message.ToLower().Equals("2", StringComparison.InvariantCultureIgnoreCase))
             {
                 await context.PostAsync("Dog is a nice choice");
             }
