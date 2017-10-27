@@ -61,9 +61,9 @@ namespace FirstBot.Dialogs
                 CardAction ca = new CardAction()
                 {
                     Title = "Cat",
-                    Image= "https://images.pexels.com/photos/126407/pexels-photo-126407.jpeg",
-                    Value="cat"
-
+                    //Image= "https://images.pexels.com/photos/126407/pexels-photo-126407.jpeg",
+                    Value = "http://saibimajdi.com/"
+                    Type = "openUrl"
                 };
 
                 ThumbnailCard herocard = new ThumbnailCard()
